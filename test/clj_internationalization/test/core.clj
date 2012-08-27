@@ -16,9 +16,3 @@
   (is (= (parameterize "foo {0}" ["bar"]) "foo bar"))
   (is (= (parameterize "foo {0} baz {1}" ["bar" "biz"]) "foo bar baz biz"))
   (is (= (parameterize "{0} bar {1} biz" ["foo" "baz"]) "foo bar baz biz")))
-
-(deftest test-term-test
-  (is (= (test-term) "test term")))
-
-(deftest test-parameter-test
-  (is (= (test-parameter "blah") "test blah parameter")))

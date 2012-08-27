@@ -5,6 +5,8 @@
 
 (def resource-name "Terms")
 
+(def term-namespace-symbol 'clj-internationalization.term)
+
 (defn parameterize
   "fill in the parameters of the given term. If given a bundle and key, then pull the term from the bundle,
 parameterize, then return the result."
@@ -40,7 +42,10 @@ parameterize, then return the result."
 (defn load-term-bundle
   ([] (load-term-bundle (find-term-bundle)))
   ([term-bundle]
-    (doseq [term (.keySet term-bundle)]
-      (load-term term (.getString term-bundle term)))))
+    (let [current-ns *ns*]
+      (in-ns term-namespace-symbol)
+      (doseq [term (.keySet term-bundle)]
+        (load-term term (.getString term-bundle term)))
+      (in-ns (ns-name current-ns)))))
 
 (load-term-bundle)
