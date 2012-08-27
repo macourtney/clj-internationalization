@@ -49,3 +49,11 @@ parameterize, then return the result."
       (doseq [term (.keySet term-bundle)]
         (load-term term (.getString term-bundle term)))
       (in-ns (ns-name current-ns)))))
+
+(defmacro load-terms
+  "Loads the terms from the given bundle into the current namespace. If the bundle name is not given, then \"Terms\" is
+used."
+  ([] (load-terms resource-name))
+  ([bundle-name]
+    (let [current-ns (ns-name *ns*)]
+      (load-term-bundle (find-term-bundle bundle-name) current-ns))))
