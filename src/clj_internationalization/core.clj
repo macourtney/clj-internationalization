@@ -42,10 +42,10 @@ parameterize, then return the result."
 (defn load-term-bundle
   ([] (load-term-bundle (find-term-bundle)))
   ([term-bundle]
+    (load-term-bundle term-bundle term-namespace-symbol))
+  ([term-bundle term-namespace]
     (let [current-ns *ns*]
-      (in-ns term-namespace-symbol)
+      (in-ns term-namespace)
       (doseq [term (.keySet term-bundle)]
         (load-term term (.getString term-bundle term)))
       (in-ns (ns-name current-ns)))))
-
-(load-term-bundle)
